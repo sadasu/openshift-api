@@ -27,9 +27,34 @@ type ClusterOperator struct {
 	Status ClusterOperatorStatus `json:"status"`
 }
 
-// ClusterOperatorSpec is empty for now, but you could imagine holding information like "pause".
+// +kubebuilder:validation:Pattern=`^(Active|Paused|Unsupported|Inactive)$`
+type OperationalState string
+
+var (
+        // The ClusterOperator would be put in "Active" operational state when the Operator is expected to be fully functional.
+        Active OperationalState = "Active"
+        // The ClusterOperator would be put in "Paused" operational state when the Operator was once "Active" but temporarily
+        // needs to stop managing its resources.
+        Paused OperationalState = "Paused"
+        // The ClusterOperator would be put in "Unsupported" operational state when the Operator is being run with unsupported
+        // configuration. The Operator would not be managing its resources when put in this state. The ClusterOperator would not
+        // transition to any other operational state once it reaches this state. This is not an error state.
+        Unsupported OperationalState = "Unsupported"
+        // The ClusterOperator would be put in "Inactive" operational state when it needs to stop managing resources due to
+        // issues in other parts of the system. The ClusterOperator can be made "Active" after those external issues have been
+        // resolved.
+        Inactive OperationalState = "Inactive"
+)
+
+
+// ClusterOperatorSpec used to put the ClusterOperator in a specific operational state based
+// on external factors like configuration etc.
 type ClusterOperatorSpec struct {
+        // OperationalState is a way to affect the operation of the Operator based on external factors.
+        // +optional
+        OperationalState OperationalState `json:"operationalState"`
 }
+
 
 // ClusterOperatorStatus provides information about the status of the operator.
 // +k8s:deepcopy-gen=true
