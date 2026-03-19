@@ -817,13 +817,13 @@ var (
 					mustRegister()
 
 	FeatureGateAWSServiceLBNetworkSecurityGroup = newFeatureGate("AWSServiceLBNetworkSecurityGroup").
-					reportProblemsToJiraComponent("Cloud Compute / Cloud Controller Manager").
-					contactPerson("mtulio").
-					productScope(ocpSpecific).
-					enhancementPR("https://github.com/openshift/enhancements/pull/1802").
-					enable(inClusterProfile(SelfManaged), inDefault(), inOKD(), inTechPreviewNoUpgrade(), inDevPreviewNoUpgrade()).
-					enable(inClusterProfile(Hypershift), inTechPreviewNoUpgrade(), inDevPreviewNoUpgrade()).
-					mustRegister()
+							reportProblemsToJiraComponent("Cloud Compute / Cloud Controller Manager").
+							contactPerson("mtulio").
+							productScope(ocpSpecific).
+							enhancementPR("https://github.com/openshift/enhancements/pull/1802").
+							enable(inClusterProfile(SelfManaged), inDefault(), inOKD(), inTechPreviewNoUpgrade(), inDevPreviewNoUpgrade()).
+							enable(inClusterProfile(Hypershift), inTechPreviewNoUpgrade(), inDevPreviewNoUpgrade()).
+							mustRegister()
 
 	FeatureGateNoRegistryClusterInstall = newFeatureGate("NoRegistryClusterInstall").
 						reportProblemsToJiraComponent("Installer / Agent based installation").
@@ -846,7 +846,7 @@ var (
 						contactPerson("barbacbd").
 						productScope(ocpSpecific).
 						enhancementPR("https://github.com/openshift/enhancements/pull/1468").
-						enable(inTechPreviewNoUpgrade(), inDevPreviewNoUpgrade()).
+						enable(inDefault(), inOKD(), inTechPreviewNoUpgrade(), inDevPreviewNoUpgrade()).
 						mustRegister()
 
 	FeatureGateGCPCustomAPIEndpointsInstall = newFeatureGate("GCPCustomAPIEndpointsInstall").
